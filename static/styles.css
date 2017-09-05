@@ -1,0 +1,18 @@
+input.form-control:valid + div.invalid-feedback {
+    display: none;
+}
+
+input.form-control:invalid + div {
+    display: block;
+    color: red;
+}
+
+input.form-control:-moz-submit-invalid + div {
+    display: block;
+    color: red;
+}
+
+input.form-control:-moz-ui-invalid + div {
+    display: block;
+    color: red;
+}

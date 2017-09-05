@@ -6,7 +6,8 @@
     <meta name="description" content="App graphing stock prices from Quandl - Heroku and Flask integration.">
     <meta name="author" content="@anntenna">
     <!-- <link rel="icon" href="favicon.ico"> -->
-		<title>Quandl Stock Tracker - Anusha B</title>
+    <title>Quandl Stock Tracker - Anusha B</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static',filename='styles.css') }}">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- Bokeh CSS -->
@@ -27,10 +28,13 @@
       <div class="row">
         <div class="col-lg-3 text-left container">
           
-          <form id="ticker-form" method="post" action="index">
+          <form id="ticker-form" method="post" action="index" novalidate>
             <div class="form-group row">
               <label for="input-ticker" class="col-1">Ticker:</label>
-              <input type="text" class="form-control col-3" id="input-ticker" value="{{ ticker }}" name="ticker">
+              <input type="text" class="form-control col-3" id="input-ticker" value="{{ ticker }}" name="ticker" required>
+              <div class="invalid-feedback">
+                  Please provide a valid ticker code.
+                </div>
             </div>
             <div class="form-check row">
               <label class="form-check-label col-1">
@@ -59,13 +63,19 @@
             <div class="form-group row">
               <label for="start-date-input" class="col-1 col-form-label">Start Date</label>
               <div class="col-3">
-                <input class="form-control" type="date" value="{{ start }}" id="start-date-input" name="start">
+                <input class="form-control" type="date" value="{{ start }}" id="start-date-input" name="start" required>
+                <div class="invalid-feedback">
+                    Please provide a valid start date.
+                  </div>
               </div>
             </div>
             <div class="form-group row">
               <label for="end-date-input" class="col-1 col-form-label">End Date</label>
               <div class="col-3">
-                <input class="form-control" type="date" value="{{ end }}" id="end-date-input" name="end">
+                <input class="form-control" type="date" value="{{ end }}" id="end-date-input" name="end" required>
+                <div class="invalid-feedback">
+                    Please provide a valid end date.
+                  </div>
               </div>
             </div>
             <input type="submit" class="btn btn-primary" value="View graph" />
@@ -84,5 +94,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.7.min.js"></script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+          "use strict";
+          window.addEventListener("load", function() {
+            var form = document.getElementById("ticker-form");
+            form.addEventListener("submit", function(event) {
+              if (form.checkValidity() == false) {
+                event.preventDefault();
+                event.stopPropagation();
+                // let invalid_divs = document.getElementsByClassName('invalid-feedback'), i;
+                // for (i = 0; i < invalid_divs.length;  i++) {
+                //   invalid_divs[i].style.display = 'block';
+                //   invalid_divs[i].style.color = 'red';
+                // }
+
+              }
+              form.classList.add("was-validated");
+            }, false);
+          }, false);
+        }());
+        </script>
 	</body>
 </html>

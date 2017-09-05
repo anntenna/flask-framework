@@ -10,13 +10,13 @@ import numpy as np
 app = Flask(__name__)
 app.vars= {}
 
-#set api key and link - TODO: change to collect this from config file
+# set api key and link - TODO: change to collect this from config file
 QUANDL_BASE_URL = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?'
 API_KEY = 'xFNtCxoxc8BksE1MXfk1'
 col_options = ['open','close','high','low']
 graph_line_colors = ['maroon','navy','gray','green']
 
-#set initial values
+# set initial values
 app.vars['ticker'] = 'AAPL'
 app.vars['columns'] = 'close'
 app.vars['start'] = '2011-01-01'
@@ -32,7 +32,7 @@ def main():
     Render initial page and graph with default values
     
     """
-    #generate initial graph
+    # generate initial graph
     script, div = generate_graph()
     return render_template('index.html', graph_div = div, script=script, 
               ticker=app.vars['ticker'], start=app.vars['start'], end=app.vars['end'],
@@ -105,11 +105,11 @@ def index():
             app.vars[col] = 'checked'
         else:
             app.vars[col] = ''
-    
     app.vars['columns'] = ','.join(columns)
     app.vars['start'] = request.form['start']
     app.vars['end'] = request.form['end']
     
+    # generate updated graph
     script, div = generate_graph()
     return render_template('index.html',graph_div = div, script=script, 
               ticker=app.vars['ticker'], start=app.vars['start'], end=app.vars['end'],
