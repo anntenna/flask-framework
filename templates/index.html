@@ -3,26 +3,78 @@
 	<head>
 		<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Skeleton application demoing Heroku and Flask integration.">
-    <meta name="author" content="@gotoariel">
+    <meta name="description" content="App graphing stock prices from Quandl - Heroku and Flask integration.">
+    <meta name="author" content="@anntenna">
     <!-- <link rel="icon" href="favicon.ico"> -->
-
-		<title>Wilkommen, bienvenue, and welcome to Heroku!</title>
-
+		<title>Quandl Stock Tracker - Anusha B</title>
     <!-- Bootstrap core CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Bokeh CSS -->
+    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.6.min.css" type="text/css">
+    {{script|safe}}
   </head>
 	<body>
 		<div class="container">
       <div class="row">
-        <div class="col-lg-12 text-left">
-          <h2>Hello, World!</h2>
-          <ul>
-            <li><a target="_blank" href="https://www.heroku.com/">Heroku</a></li>
-            <li><a target="_blank" href="http://flask.pocoo.org/">Flask</a></li>
-            <li><a target="_blank" href="http://jinja.pocoo.org/docs/2.9/">Jinja2</a></li>
-            <li><a target="_blank" href="http://getbootstrap.com/">Bootstrap</a></li>
-          </ul>
+          <nav class="navbar navbar-default">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <a href="#"><h2>Quandl Stock Tracker</h2></a>
+                </div>
+              </div>
+            </nav>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 text-left container">
+          
+          <form id="ticker-form" method="post" action="index">
+            <div class="form-group row">
+              <label for="input-ticker" class="col-1">Ticker:</label>
+              <input type="text" class="form-control col-3" id="input-ticker" value="AAPL" name="ticker">
+            </div>
+            <div class="form-check row">
+              <label class="form-check-label col-1">
+                <input type="checkbox" class="form-check-input col-3" id="opening-check" name="open">
+                Opening Price
+              </label>
+            </div>
+            <div class="form-check row">
+              <label class="form-check-label col-1">
+                <input type="checkbox" class="form-check-input col-3" checked id="closing-check" name="close">
+                Closing Price
+              </label>
+            </div>
+            <div class="form-check row">
+              <label class="form-check-label col-1">
+                <input type="checkbox" class="form-check-input col-3" id="high-check" name="high">
+                High Price
+              </label>
+            </div>
+            <div class="form-check row">
+              <label class="form-check-label col-1">
+                <input type="checkbox" class="form-check-input col-3" id="low-check" name="low">
+                Low Price
+                </label>
+            </div>
+            <div class="form-group row">
+              <label for="start-date-input" class="col-1 col-form-label">Start Date</label>
+              <div class="col-3">
+                <input class="form-control" type="date" value="2011-01-01" id="start-date-input" name="start">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="end-date-input" class="col-1 col-form-label">End Date</label>
+              <div class="col-3">
+                <input class="form-control" type="date" value="2017-01-01" id="end-date-input" name="end">
+              </div>
+            </div>
+            <input type="submit" class="btn btn-primary" value="See the graph" />
+          </form>
+        </div>
+        <div class="col-lg-9 ml-1 mx-auto mt-3" id="graph-div">
+          <div class="container">
+            {{graph_div|safe}}
+          </div>
         </div>
       </div>
 		</div>
@@ -30,6 +82,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.6.min.js"></script>
 	</body>
 </html>
