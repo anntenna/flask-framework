@@ -8,6 +8,8 @@ This repository was cloned from [here](https://github.com/thedataincubator/flask
 
 **[Here's the link](https://anusha-stock-ticker-app.herokuapp.com)** to the final product that demonstrates the integration of these tools.
 
+To see a description of the data from its source, check out [Quandl's documentation](https://www.quandl.com/data/EOD-End-of-Day-US-Stock-Prices).
+
 ### Listed below are the steps that needed to be followed from the original repository.
 *****
 
