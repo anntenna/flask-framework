@@ -122,4 +122,4 @@ def index():
               open=app.vars['open'], close=app.vars['close'], high=app.vars['high'], low=app.vars['low'])
 
 if __name__ == '__main__':
-  app.run(port=33507, debug=True)
+  app.run(port=33507)
