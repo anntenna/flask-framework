@@ -1,13 +1,15 @@
-# Flask on Heroku
+# Quandl Stock Ticker Tracker
 
-This project is intended to help you tie together some important concepts and
-technologies from the 12-day course, including Git, Flask, JSON, Pandas,
+This project is intended to demonstrate my learning of some important concepts and
+technologies from the 12-day course for The Data Incubator, including Git, Flask, JSON, Pandas,
 Requests, Heroku, and Bokeh for visualization.
 
-The repository contains a basic template for a Flask configuration that will
-work on Heroku.
+This repository was cloned from (here)[https://github.com/thedataincubator/flask-demo] and modified to perform as a basic app that takes user input of a stock ticker and display a Bokeh chart showing ticker prices.
 
-A [finished example](https://lemurian.herokuapp.com) that demonstrates some basic functionality.
+**(Here's the link)[https://anusha-stock-ticker-app.herokuapp.com]** to the final product that demonstrates the integration of these tools.
+
+### Listed below are the steps that needed to be followed from the original repository.
+*****
 
 ## Step 1: Setup and deploy
 - Git clone the existing template repository.
@@ -39,3 +41,5 @@ A [finished example](https://lemurian.herokuapp.com) that demonstrates some basi
   and [examples](https://github.com/bokeh/bokeh/tree/master/examples/embed).
 - Make the plot visible on your website through embedded HTML or other methods - this is where Flask comes in to manage the interactivity and display the desired content.
 - Some good references for Flask: [This article](https://realpython.com/blog/python/python-web-applications-with-flask-part-i/), especially the links in "Starting off", and [this tutorial](https://github.com/bev-a-tron/MyFlaskTutorial).
+
+*****
