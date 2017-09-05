@@ -4,9 +4,9 @@ This project is intended to demonstrate my learning of some important concepts a
 technologies from the 12-day course for The Data Incubator, including Git, Flask, JSON, Pandas,
 Requests, Heroku, and Bokeh for visualization.
 
-This repository was cloned from (here)[https://github.com/thedataincubator/flask-demo] and modified to perform as a basic app that takes user input of a stock ticker and display a Bokeh chart showing ticker prices.
+This repository was cloned from [here](https://github.com/thedataincubator/flask-demo) and modified to perform as a basic app that takes user input of a stock ticker and display a Bokeh chart showing ticker prices.
 
-**(Here's the link)[https://anusha-stock-ticker-app.herokuapp.com]** to the final product that demonstrates the integration of these tools.
+**[Here's the link](https://anusha-stock-ticker-app.herokuapp.com)** to the final product that demonstrates the integration of these tools.
 
 ### Listed below are the steps that needed to be followed from the original repository.
 *****
