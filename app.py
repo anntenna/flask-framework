@@ -42,9 +42,6 @@ def retrieve_page(params):
     quandl_url = QUANDL_BASE_URL + params + '&api_key=' + API_KEY
     response = requests.get(quandl_url)
 
-    if response.status_code != 200:
-        print ("Cannot fetch data {} from Quandl. \nStatus code: {}, Reason: {}"
-            .format(params, response.status_code, response.reason))
     return response
 
 def generate_graph():
@@ -59,13 +56,22 @@ def generate_graph():
     start=app.vars['start']
     end=app.vars['end']
     params = 'ticker=' + ticker + '&qopts.columns=' + columns + '&date.gte=' + start + '&date.lte=' + end
+    script = ''
+
     # make api call
     quandl_response = retrieve_page(params)
-
+    if quandl_response.status_code != 200:
+        div = "<p>Cannot fetch data {} from Quandl. \nStatus code: {}, Reason: {}</p>".format(params, quandl_response.status_code, quandl_response.reason)
+        return script, div
+    
     # store data in dataframe
     data_json = json.loads(quandl_response.text)
     data_cols = [x['name'] for x in data_json['datatable']['columns']]
     data = DataFrame(data_json['datatable']['data'], columns = data_cols)
+
+    if len(data) <= 0:
+        div = "<p>No data received from Quandl for params: {}</p>".format(params)
+        return script, div
 
     # extract dates for x-axis of graph
     dates = np.array(data['date'],dtype=np.datetime64)
