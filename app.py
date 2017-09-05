@@ -28,6 +28,10 @@ app.vars['low'] = ''
 
 @app.route('/')
 def main():
+    """ 
+    Render initial page and graph with default values
+    
+    """
     #generate initial graph
     script, div = generate_graph()
     return render_template('index.html', graph_div = div, script=script, 
@@ -44,12 +48,17 @@ def retrieve_page(params):
     return response
 
 def generate_graph():
+    """
+    Generate graph from given form input / default values
+
+    Returns: script and div components of bokeh graph fig
+    """
     # set params for quandl API call
     ticker=app.vars['ticker']
     columns=app.vars['columns']+',date'
     start=app.vars['start']
     end=app.vars['end']
-    params = 'ticker='+ticker+'&qopts.columns='+columns+'&date.gte='+start+'&date.lte='+end
+    params = 'ticker=' + ticker + '&qopts.columns=' + columns + '&date.gte=' + start + '&date.lte=' + end
     # make api call
     quandl_response = retrieve_page(params)
 
@@ -58,32 +67,35 @@ def generate_graph():
     data_cols = [x['name'] for x in data_json['datatable']['columns']]
     data = DataFrame(data_json['datatable']['data'], columns = data_cols)
 
-    # extract values for bokeh graph
+    # extract dates for x-axis of graph
     dates = np.array(data['date'],dtype=np.datetime64)
 
-    # window_size = 30
-    # window = np.ones(window_size)/float(window_size)
-
-    p = figure(width=800, height=350, x_axis_type="datetime")
-
-    for i, col in enumerate(data.columns[data.columns.isin(col_options)]):
-        p.line(dates, data[col].tolist(), color=graph_line_colors[i],legend=col)
+    # create bokeh figure
+    fig = figure(width=800, height=350, x_axis_type="datetime")
     
-    p.title.text = '{} Prices: {} to {}'.format(ticker, start, end)
-    p.legend.location = "top_left"
-    p.grid.grid_line_alpha=0
-    p.xaxis.axis_label = 'Date'
-    p.yaxis.axis_label = 'Price'
-    p.ygrid.band_fill_color="skyblue"
-    p.ygrid.band_fill_alpha = 0.1
+    # draw a line for each selected column
+    for i, col in enumerate(data.columns[data.columns.isin(col_options)]):
+        fig.line(dates, data[col].tolist(), color=graph_line_colors[i], legend=col)
+    
+    # set the decor
+    fig.title.text = '{} Prices: {} to {}'.format(ticker, start, end)
+    fig.legend.location = "top_left"
+    fig.grid.grid_line_alpha=0
+    fig.xaxis.axis_label = 'Date'
+    fig.yaxis.axis_label = 'Price'
+    fig.ygrid.band_fill_color="skyblue"
+    fig.ygrid.band_fill_alpha = 0.1
 
-    return components(p)
-
-
-
+    # return components to be rendered (script and div)
+    return components(fig)
 
 @app.route('/index',methods=['GET','POST'])
 def index():
+    """
+    Receive POST request from form and generate graph. Save form values in app.vars
+
+    Returns: script and div components of bokeh graph fig
+    """
     # save form values
     app.vars['ticker'] = request.form['ticker']
     columns = []
