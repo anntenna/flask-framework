@@ -21,12 +21,18 @@ app.vars['ticker'] = 'AAPL'
 app.vars['columns'] = 'close'
 app.vars['start'] = '2011-01-01'
 app.vars['end'] = '2017-01-01'
+app.vars['open'] = ''
+app.vars['close'] = 'checked'
+app.vars['high'] = ''
+app.vars['low'] = ''
 
 @app.route('/')
 def main():
     #generate initial graph
     script, div = generate_graph()
-    return render_template('index.html', graph_div = div, script=script)
+    return render_template('index.html', graph_div = div, script=script, 
+              ticker=app.vars['ticker'], start=app.vars['start'], end=app.vars['end'],
+              open=app.vars['open'], close=app.vars['close'], high=app.vars['high'], low=app.vars['low'])
 
 def retrieve_page(params):
     quandl_url = QUANDL_BASE_URL + params + '&api_key=' + API_KEY
@@ -78,21 +84,24 @@ def generate_graph():
 
 @app.route('/index',methods=['GET','POST'])
 def index():
-    if request.method == 'POST':
-        app.vars['ticker'] = request.form['ticker']
-        columns = []
-        for col in col_options:
-            if request.form.get(col) == 'on':
-                columns.append(col)
-
-        app.vars['columns'] = ','.join(columns)
-        app.vars['start'] = request.form['start']
-        app.vars['end'] = request.form['end']
-        
-        script, div = generate_graph()
-        return render_template('index.html',graph_div = div, script=script)
-    else:
-        return render_template('index.html', graph_div = 'get')
+    # save form values
+    app.vars['ticker'] = request.form['ticker']
+    columns = []
+    for col in col_options:
+        if request.form.get(col) == 'on':
+            columns.append(col)
+            app.vars[col] = 'checked'
+        else:
+            app.vars[col] = ''
+    
+    app.vars['columns'] = ','.join(columns)
+    app.vars['start'] = request.form['start']
+    app.vars['end'] = request.form['end']
+    
+    script, div = generate_graph()
+    return render_template('index.html',graph_div = div, script=script, 
+              ticker=app.vars['ticker'], start=app.vars['start'], end=app.vars['end'],
+              open=app.vars['open'], close=app.vars['close'], high=app.vars['high'], low=app.vars['low'])
 
 if __name__ == '__main__':
   app.run(port=33507, debug=True)

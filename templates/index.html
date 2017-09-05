@@ -30,45 +30,45 @@
           <form id="ticker-form" method="post" action="index">
             <div class="form-group row">
               <label for="input-ticker" class="col-1">Ticker:</label>
-              <input type="text" class="form-control col-3" id="input-ticker" value="AAPL" name="ticker">
+              <input type="text" class="form-control col-3" id="input-ticker" value="{{ ticker }}" name="ticker">
             </div>
             <div class="form-check row">
               <label class="form-check-label col-1">
-                <input type="checkbox" class="form-check-input col-3" id="opening-check" name="open">
+                <input type="checkbox" class="form-check-input col-3" id="opening-check" name="open" "{{ open }}">
                 Opening Price
               </label>
             </div>
             <div class="form-check row">
               <label class="form-check-label col-1">
-                <input type="checkbox" class="form-check-input col-3" checked id="closing-check" name="close">
+                <input type="checkbox" class="form-check-input col-3" checked id="closing-check" name="close" "{{ close }}">
                 Closing Price
               </label>
             </div>
             <div class="form-check row">
               <label class="form-check-label col-1">
-                <input type="checkbox" class="form-check-input col-3" id="high-check" name="high">
+                <input type="checkbox" class="form-check-input col-3" id="high-check" name="high" "{{ high }}">
                 High Price
               </label>
             </div>
             <div class="form-check row">
               <label class="form-check-label col-1">
-                <input type="checkbox" class="form-check-input col-3" id="low-check" name="low">
+                <input type="checkbox" class="form-check-input col-3" id="low-check" name="low" "{{ low }}">
                 Low Price
                 </label>
             </div>
             <div class="form-group row">
               <label for="start-date-input" class="col-1 col-form-label">Start Date</label>
               <div class="col-3">
-                <input class="form-control" type="date" value="2011-01-01" id="start-date-input" name="start">
+                <input class="form-control" type="date" value="{{ start }}" id="start-date-input" name="start">
               </div>
             </div>
             <div class="form-group row">
               <label for="end-date-input" class="col-1 col-form-label">End Date</label>
               <div class="col-3">
-                <input class="form-control" type="date" value="2017-01-01" id="end-date-input" name="end">
+                <input class="form-control" type="date" value="{{ end }}" id="end-date-input" name="end">
               </div>
             </div>
-            <input type="submit" class="btn btn-primary" value="See the graph" />
+            <input type="submit" class="btn btn-primary" value="View graph" />
           </form>
         </div>
         <div class="col-lg-9 ml-1 mx-auto mt-3" id="graph-div">
@@ -83,6 +83,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.7.min.js"></script>
+    <script src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.6.min.js"></script>
 	</body>
 </html>
